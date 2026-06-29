@@ -1,5 +1,5 @@
-const { httpServerHandler } = require('cloudflare:node');
-const express = require('express');
+import { httpServerHandler } from "cloudflare:node";
+import express from "express";
 const app = express();
 const port = 3000;
 
@@ -119,12 +119,4 @@ async function run_nero() {
   const res = await pool.query('SELECT * FROM locations;');
   console.log(res.rows);
 }
-// Create the fetch handler
-const workerHandler = httpServerHandler({ port: 3000 });
-
-// Classic Worker entry point
-addEventListener('fetch', (event) => {
-  // env and ctx are passed as empty objects if not needed
-  // Use process.env inside your Express app for environment variables
-  event.respondWith(workerHandler(event.request, {}, {}));
-});
+export default httpServerHandler({ port: 3000 });
