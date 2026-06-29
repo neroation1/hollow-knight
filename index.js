@@ -60,6 +60,30 @@ app.get("/shop_items/search", async (req, res) => {
     }
 });
 
+app.get("/items/search", async (req, res) => {
+    try {
+        const { name } = req.query;
+        const result = await pool.query(`
+            SELECT 
+                items.name AS item,
+                vendors.name AS vendor,
+                locations.name AS location,
+                vendor_items.price,
+                vendor_items.currency
+            FROM vendor_items
+            JOIN items ON vendor_items.item_id = items.id
+            JOIN vendors ON vendor_items.vendor_id = vendors.id
+            JOIN locations ON vendors.location_id = locations.id
+            WHERE items.name ILIKE $1
+        `, [`%${name}%`]);
+        
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
