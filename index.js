@@ -119,7 +119,12 @@ async function run_nero() {
   const res = await pool.query('SELECT * FROM locations;');
   console.log(res.rows);
 }
-const handler = httpServerHandler({ port: 3000 });
+// Create the fetch handler
+const workerHandler = httpServerHandler({ port: 3000 });
 
-// Cloudflare Module Worker expects a default export
-exports.default = handler;
+// Classic Worker entry point
+addEventListener('fetch', (event) => {
+  // env and ctx are passed as empty objects if not needed
+  // Use process.env inside your Express app for environment variables
+  event.respondWith(workerHandler(event.request, {}, {}));
+});
