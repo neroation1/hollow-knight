@@ -1,4 +1,4 @@
-import { httpServerHandler } from "cloudflare:node";
+const { httpServerHandler } = require('cloudflare:node');
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -119,4 +119,7 @@ async function run_nero() {
   const res = await pool.query('SELECT * FROM locations;');
   console.log(res.rows);
 }
-export default httpServerHandler({ port: 3000 });
+const handler = httpServerHandler({ port: 3000 });
+
+// Cloudflare Module Worker expects a default export
+exports.default = handler;
