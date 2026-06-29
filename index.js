@@ -89,34 +89,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  connectionString: 'postgresql://postgres:DcEydCuZLXpEFLHaBgsRLJzixsphpOQN@hopper.proxy.rlwy.net:31987/railway'
-});
-run().catch(console.error);
-async function run() {
-  await pool.connect();
-  const res = await pool.query('SELECT * FROM Items;');
-  console.log(res.rows);
-}
-
-run_noah().catch(console.error);
-async function run_noah() {
-  await pool.connect();
-  const res = await pool.query('SELECT * FROM vendor_items;');
-  console.log(res.rows);
-}
-run_eurduino().catch(console.error);
-async function run_eurduino() {
-  await pool.connect();
-  const res = await pool.query('SELECT * FROM vendors;');
-  console.log(res.rows);
-}
-run_nero().catch(console.error);
-async function run_nero() {
-  await pool.connect();
-  const res = await pool.query('SELECT * FROM locations;');
-  console.log(res.rows);
-}
 export default httpServerHandler({ port: 3000 });
