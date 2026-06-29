@@ -1,4 +1,4 @@
-name = "hollow-knight"
-compatibility_date = "2024-09-23"
+name = "my-express-app"
+compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
 main = "index.js"
