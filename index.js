@@ -3,6 +3,12 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: 'postgresql://postgres:DcEydCuZLXpEFLHaBgsRLJzixsphpOQN@hopper.proxy.rlwy.net:31987/railway'
+});
+
 app.get('/', (req, res) => {
   res.send('Hello Eudrino!');
 });
