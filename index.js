@@ -4,10 +4,10 @@ const app = express();
 const port = 3000;
 
 const { Pool } = require('pg');
-
-const pool = new Pool({
-  connectionString: 'postgresql://postgres:DcEydCuZLXpEFLHaBgsRLJzixsphpOQN@hopper.proxy.rlwy.net:31987/railway'
+ const pool = new Pool({   connectionString: 'postgresql://postgres:DcEydCuZLXpEFLHaBgsRLJzixsphpOQN@hopper.proxy.rlwy.net:31987/railway',
+        maxUses: 1,                       
 });
+
   pool.connect();
 app.get('/', (req, res) => {
   res.send('Hello Eudrino!');
@@ -16,24 +16,20 @@ app.get('/', (req, res) => {
 app.get("/items", async (req, res) => {
     const result = await pool.query("SELECT * FROM items");
     res.json(result.rows);
-  await pool.end()
 }); 
 app.get("/vendors", async (req, res) => {
     const result = await pool.query("SELECT * FROM vendors");
     res.json(result.rows);
-  await pool.end()
 });
 
 app.get("/locations", async (req, res) => {
     const result = await pool.query("SELECT * FROM locations");
     res.json(result.rows);
-  await pool.end()
 });
 
 app.get("/vendor_items", async (req, res) => {
     const result = await pool.query("SELECT * FROM vendor_items");
     res.json(result.rows);
-  await pool.end()
 });
 
 app.get("/shop_items", async (req, res) => {
@@ -52,7 +48,6 @@ app.get("/shop_items", async (req, res) => {
     `);
 
     res.json(result.rows);
-  await pool.end()
 });
 
 app.get("/shop_items/search", async (req, res) => {
@@ -67,7 +62,6 @@ app.get("/shop_items/search", async (req, res) => {
         `, [`%${vendor}%`]);
         
         res.json(result.rows);
-      await pool.end()
     } catch (err) {
         console.error(err.message);
     }
@@ -91,7 +85,6 @@ app.get("/items/search", async (req, res) => {
         `, [`%${name}%`]);
         
         res.json(result.rows);
-      await pool.end()
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
