@@ -8,7 +8,7 @@ const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: 'postgresql://postgres:DcEydCuZLXpEFLHaBgsRLJzixsphpOQN@hopper.proxy.rlwy.net:31987/railway'
 });
-
+ await pool.connect();
 app.get('/', (req, res) => {
   res.send('Hello Eudrino!');
 });
