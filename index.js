@@ -54,7 +54,7 @@ app.get("/shop_items/search", async (req, res) => {
     try {
         const { vendor } = req.query;
         const result = await pool.query(`
-            SELECT vendors.name AS vendor, items.name AS item, vendor_items.price
+            SELECT vendors.name AS vendor, items.name AS item,items.image_url AS image, vendor_items.price
             FROM vendor_items
             JOIN vendors ON vendor_items.vendor_id = vendors.id
             JOIN items ON vendor_items.item_id = items.id
