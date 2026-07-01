@@ -47,7 +47,7 @@ app.get("/shop_items", async (req, res) => {
             ON vendor_items.item_id = items.id;
     `);
 
-    res.json(result.rows);
+    res.json(result.rows); 
 });
 
 app.get("/shop_items/search", async (req, res) => {
